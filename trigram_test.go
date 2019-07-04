@@ -133,11 +133,14 @@ func TestFullPrune(t *testing.T) {
 
 var result int
 var podNames = getPodNames()
-var f1 = getFileNames(100, 5000)
-var f2 = getFileNames(100, 100000)
+var f1 = getFileNames(100, 10000)
+var f2 = getFileNames(100, 50000)
+var f3 = getFileNames(100, 100000)
+
 
 var idx1 = NewIndex(f1)
 var idx2 = NewIndex(f2)
+var idx3 = NewIndex(f3)
 
 
 func BenchmarkQuery1_1(b *testing.B) {
@@ -223,6 +226,51 @@ func BenchmarkQuery2_3(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		ts := extractTrigrams(q)
 		r := idx2.QueryTrigrams(ts)
+		resultLength = len(r)
+	}
+	// always store the result to a package level variable
+	// so the compiler cannot eliminate the Benchmark itself.
+	result = resultLength
+}
+
+func BenchmarkQuery3_1(b *testing.B) {
+	var resultLength int
+	format := "general.tuning.%s.metric-*"
+	q := fmt.Sprintf(format, podNames[rand.Intn(100)])
+
+	for n := 0; n < b.N; n++ {
+		ts := extractTrigrams(q)
+		r := idx3.QueryTrigrams(ts)
+		resultLength = len(r)
+	}
+	// always store the result to a package level variable
+	// so the compiler cannot eliminate the Benchmark itself.
+	result = resultLength
+}
+
+func BenchmarkQuery3_2(b *testing.B) {
+	var resultLength int
+	format := "general.tuning.%s.metric-1"
+	q := fmt.Sprintf(format, "*")
+
+	for n := 0; n < b.N; n++ {
+		ts := extractTrigrams(q)
+		r := idx3.QueryTrigrams(ts)
+		resultLength = len(r)
+	}
+	// always store the result to a package level variable
+	// so the compiler cannot eliminate the Benchmark itself.
+	result = resultLength
+}
+
+func BenchmarkQuery3_3(b *testing.B) {
+	var resultLength int
+	format := "general.tuning.%s.metric-1*"
+	q := fmt.Sprintf(format, "*")
+
+	for n := 0; n < b.N; n++ {
+		ts := extractTrigrams(q)
+		r := idx3.QueryTrigrams(ts)
 		resultLength = len(r)
 	}
 	// always store the result to a package level variable
