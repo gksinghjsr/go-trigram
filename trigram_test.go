@@ -141,87 +141,93 @@ var idx2 = NewIndex(f2)
 
 
 func BenchmarkQuery1_1(b *testing.B) {
-	var r []DocID
+	var resultLength int
 	format := "general.tuning.%s.metric-*"
 	q := fmt.Sprintf(format, podNames[rand.Intn(100)])
 
 	for n := 0; n < b.N; n++ {
 		ts := extractTrigrams(q)
-		r = idx1.QueryTrigrams(ts)
+		r := idx1.QueryTrigrams(ts)
+		resultLength = len(r)
 	}
 	// always store the result to a package level variable
 	// so the compiler cannot eliminate the Benchmark itself.
-	result = len(r)
+	result = resultLength
 }
 
 func BenchmarkQuery1_2(b *testing.B) {
-	var r []DocID
+	var resultLength int
 	format := "general.tuning.%s.metric-1"
 	q := fmt.Sprintf(format, "*")
 
 	for n := 0; n < b.N; n++ {
 		ts := extractTrigrams(q)
-		r = idx1.QueryTrigrams(ts)
+		r := idx1.QueryTrigrams(ts)
+		resultLength = len(r)
 	}
 	// always store the result to a package level variable
 	// so the compiler cannot eliminate the Benchmark itself.
-	result = len(r)
+	result = resultLength
 }
 
 func BenchmarkQuery1_3(b *testing.B) {
-	var r []DocID
+	var resultLength int
 	format := "general.tuning.%s.metric-1*"
 	q := fmt.Sprintf(format, "*")
 
 	for n := 0; n < b.N; n++ {
 		ts := extractTrigrams(q)
-		r = idx1.QueryTrigrams(ts)
+		r := idx1.QueryTrigrams(ts)
+		resultLength = len(r)
 	}
 	// always store the result to a package level variable
 	// so the compiler cannot eliminate the Benchmark itself.
-	result = len(r)
+	result = resultLength
 }
 
 func BenchmarkQuery2_1(b *testing.B) {
-	var r []DocID
+	var resultLength int
 	format := "general.tuning.%s.metric-*"
 	q := fmt.Sprintf(format, podNames[rand.Intn(100)])
 
 	for n := 0; n < b.N; n++ {
 		ts := extractTrigrams(q)
-		r = idx2.QueryTrigrams(ts)
+		r := idx2.QueryTrigrams(ts)
+		resultLength = len(r)
 	}
 	// always store the result to a package level variable
 	// so the compiler cannot eliminate the Benchmark itself.
-	result = len(r)
+	result = resultLength
 }
 
 func BenchmarkQuery2_2(b *testing.B) {
-	var r []DocID
+	var resultLength int
 	format := "general.tuning.%s.metric-1"
 	q := fmt.Sprintf(format, "*")
 
 	for n := 0; n < b.N; n++ {
 		ts := extractTrigrams(q)
-		r = idx2.QueryTrigrams(ts)
+		r := idx2.QueryTrigrams(ts)
+		resultLength = len(r)
 	}
 	// always store the result to a package level variable
 	// so the compiler cannot eliminate the Benchmark itself.
-	result = len(r)
+	result = resultLength
 }
 
 func BenchmarkQuery2_3(b *testing.B) {
-	var r []DocID
+	var resultLength int
 	format := "general.tuning.%s.metric-1*"
 	q := fmt.Sprintf(format, "*")
 
 	for n := 0; n < b.N; n++ {
 		ts := extractTrigrams(q)
-		r = idx2.QueryTrigrams(ts)
+		r := idx2.QueryTrigrams(ts)
+		resultLength = len(r)
 	}
 	// always store the result to a package level variable
 	// so the compiler cannot eliminate the Benchmark itself.
-	result = len(r)
+	result = resultLength
 }
 
 
