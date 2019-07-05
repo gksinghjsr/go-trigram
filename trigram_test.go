@@ -387,16 +387,16 @@ func getFileNames(n int) []string {
 	return fileNames
 }
 
-func getPodNames() []string {
-	var podNames []string
+func getPodNames() [100]string {
+	var podNames [100]string
 	for i := 0; i < 100; i++ {
 		podNames[i] = RandStringRunes(8)
 	}
 	return podNames
 }
 
-func getGlobNames() []string {
-	var globNames []string
+func getGlobNames() [100]string {
+	var globNames [100]string
 	for i := 0; i < 100; i++ {
 		globNames[i] = fmt.Sprintf("glob-%d", i)
 	}
